@@ -1,0 +1,16 @@
+# Copyright 2023 Canonical Ltd.
+# See LICENSE file for licensing details.
+
+options:
+  api-port:
+    description: Default API port for glauth config.
+    type: int
+    default: 5555
+  ldap-search-base:
+    description: Default base DN for ldap operations.
+    type: string
+    default:
+  tls:
+    description:
+    type: boolean
+    default: true
