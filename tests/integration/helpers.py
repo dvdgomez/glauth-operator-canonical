@@ -30,11 +30,8 @@ def _update_config() -> None:
     config_dict["backend"].update({"anonymousdse": True})
     config_dict["users"][1].update({"homeDir": "/"})
 
-    with open(CONFIG, "w") as f:
-        _ = toml.dump(config_dict, f)
-
     with zipfile.ZipFile(ZIP, "w") as z:
-        z.write("sample-simple.cfg")
+        z.writestr("sample-simple.cfg", toml.dumps(CONFIG))
 
 
 def get_glauth_res() -> Dict[str, pathlib.Path]:
