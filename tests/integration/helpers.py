@@ -36,6 +36,6 @@ def get_glauth_res() -> Dict[str, pathlib.Path]:
         config_dict["users"][1].update({"homeDir": "/"})
 
         with zipfile.ZipFile(ZIP, "w") as z:
-            z.writestr("sample-simple.cfg", toml.dumps(CONFIG))
+            z.writestr("sample-simple.cfg", toml.dumps(config_dict))
 
     return {"config": zip}

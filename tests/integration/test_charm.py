@@ -10,7 +10,7 @@ import pytest
 from helpers import get_glauth_res
 from pytest_operator.plugin import OpsTest
 
-BASES = ["jammy"]
+BASES = ["ubuntu@22.04"]
 GLAUTH = "glauth"
 SSSD = "sssd"
 UBUNTU = "ubuntu"
@@ -32,21 +32,21 @@ async def test_deploy(ops_test: OpsTest, bases: str, glauth_charm):
             application_name=GLAUTH,
             num_units=1,
             resources=res_glauth,
-            bases=bases,
+            base=bases,
         ),
         ops_test.model.deploy(
             SSSD,
             application_name=SSSD,
             channel="edge",
             num_units=1,
-            bases=bases,
+            base=bases,
         ),
         ops_test.model.deploy(
             UBUNTU,
             application_name=UBUNTU,
             channel="edge",
             num_units=1,
-            bases=bases,
+            base=bases,
         ),
     )
     # Attach resource to charm
