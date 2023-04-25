@@ -21,24 +21,21 @@ CONFIG_URL = (
 ZIP = "config.zip"
 
 
-def _update_config() -> None:
-    """Update config for integration test."""
-    assert pathlib.Path(CONFIG).exists()
-    with open(CONFIG, "r") as f:
-        config_dict = toml.load(f)
-    config_dict["ldaps"].update({"listen": "0.0.0.0:636", "enabled": True})
-    config_dict["backend"].update({"anonymousdse": True})
-    config_dict["users"][1].update({"homeDir": "/"})
-
-    with zipfile.ZipFile(ZIP, "w") as z:
-        z.writestr("sample-simple.cfg", toml.dumps(CONFIG))
-
-
 def get_glauth_res() -> Dict[str, pathlib.Path]:
     """Get glauth resources needed for charm deployment."""
     if not (zip := pathlib.Path(ZIP)).exists():
         logger.info(f"Getting resource {CONFIG} from {CONFIG_URL}...")
         request.urlretrieve(CONFIG_URL, CONFIG)
-        _update_config()
+
+        # Update config for integration test
+        assert pathlib.Path(CONFIG).exists()
+        with open(CONFIG, "r") as f:
+            config_dict = toml.load(f)
+        config_dict["ldaps"].update({"listen": "0.0.0.0:636", "enabled": True})
+        config_dict["backend"].update({"anonymousdse": True})
+        config_dict["users"][1].update({"homeDir": "/"})
+
+        with zipfile.ZipFile(ZIP, "w") as z:
+            z.writestr("sample-simple.cfg", toml.dumps(CONFIG))
 
     return {"config": zip}
