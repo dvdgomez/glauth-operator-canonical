@@ -7,6 +7,7 @@ description: Glauth operator for lightweight LDAP server.
 summary: |
   This operator is responsible for setting up a lightweight server
   with configurable backends.
+docs: https://discourse.charmhub.io/t/glauth-docs-index/10548
 peers:
   glauth:
     interface: glauth
